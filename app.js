@@ -6,8 +6,10 @@ import { createTodo } from './fetch-utils.js';
 // Part B: import get todos
 import { getTodos } from './fetch-utils.js';
 // Part C: import complete todos
-// Part D: import delete all function
+import { completeTodo } from './fetch-utils.js';
 import { renderTodo } from './render-utils.js';
+
+// Part D: import delete all function
 
 /* Get DOM Elements */
 const addTodoForm = document.getElementById('add-todo-form');
@@ -92,6 +94,19 @@ function displayTodos() {
         todoList.append(todoEl);
 
         // > Part C: Add a click event listener for the todoEl
+        todoEl.addEventListener('click', async () => {
+            const response = await completeTodo(todo.id);
+            error = response.error;
+            const updatedTodo = response.data;
+
+            if (error) {
+                displayError();
+            } else {
+                const index = todos.indexOf(todo);
+                todos[index] = updatedTodo;
+                displayTodos;
+            }
+        });
         //      - call the async supabase function to delete all todos
         //        and get the response
         //      - if there's an error, set error state and call displayError
