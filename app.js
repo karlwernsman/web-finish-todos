@@ -105,7 +105,7 @@ function displayTodos() {
             } else {
                 const index = todos.indexOf(todo);
                 todos[index] = updatedTodo;
-                displayTodos;
+                displayTodos();
             }
         });
         //      - call the async supabase function to delete all todos
